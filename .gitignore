@@ -81,7 +81,7 @@ Thumbs.db
 
 # Faiss indexes and dataset artifacts
 *.faiss
-health_supplemets/index.faiss
+health_supplements/
 rag-dataset/
 
 # Misc

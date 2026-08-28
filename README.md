@@ -128,7 +128,7 @@ CHUNK_SIZE=1000
 CHUNK_OVERLAP=100
 
 # Vector Store
-VECTOR_STORE_PATH=health_supplemets
+VECTOR_STORE_PATH=health_supplements
 SAVE_VECTOR_STORE=true
 
 # Retrieval

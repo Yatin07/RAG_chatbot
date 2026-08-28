@@ -38,7 +38,7 @@ def test_vector_store_config_defaults():
     assert vector_config.index_type == "flat"
     assert vector_config.metric == "L2"
     assert vector_config.save_local is True
-    assert vector_config.local_path == "health_supplemets"
+    assert vector_config.local_path == "health_supplements"
 
 def test_retrieval_config_defaults():
     """Test RetrievalConfig with default values."""
@@ -133,7 +133,7 @@ def test_load_config_with_missing_env_vars():
     # Test that defaults are used
     assert test_config.embedding.model_name == "nomic-embed-text"
     assert test_config.llm.model_name == "llama3.2:3b"
-    assert test_config.vector_store.local_path == "health_supplemets"
+    assert test_config.vector_store.local_path == "health_supplements"
     assert test_config.retrieval.search_type == "mmr"
     assert test_config.document_processing.dataset_path == "rag-dataset"
 

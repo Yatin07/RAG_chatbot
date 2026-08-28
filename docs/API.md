@@ -238,7 +238,7 @@ Configuration for vector store.
 - `index_type: str` - Index type (default: "flat")
 - `metric: str` - Distance metric (default: "L2")
 - `save_local: bool` - Save locally (default: True)
-- `local_path: str` - Local path (default: "health_supplemets")
+- `local_path: str` - Local path (default: "health_supplements")
 
 ### RetrievalConfig
 

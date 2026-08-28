@@ -34,7 +34,7 @@ class VectorStoreConfig:
     index_type: str = "flat"
     metric: str = "L2"
     save_local: bool = True
-    local_path: str = "health_supplemets"
+    local_path: str = "health_supplements"
 
 @dataclass
 class RetrievalConfig:
@@ -81,7 +81,7 @@ def load_config() -> AppConfig:
     )
 
     vector_store_config = VectorStoreConfig(
-        local_path=os.getenv("VECTOR_STORE_PATH", "health_supplemets"),
+        local_path=os.getenv("VECTOR_STORE_PATH", "health_supplements"),
         save_local=os.getenv("SAVE_VECTOR_STORE", "true").lower() == "true"
     )
 

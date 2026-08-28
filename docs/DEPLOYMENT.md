@@ -84,7 +84,7 @@ DATASET_PATH=./rag-dataset
 
 # Vector Store
 SAVE_VECTOR_STORE=true
-VECTOR_STORE_PATH=./health_supplemets
+VECTOR_STORE_PATH=./health_supplements
 ```
 
 ### 4. First Run
