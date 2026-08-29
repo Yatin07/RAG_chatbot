@@ -1,0 +1,22 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+venv/
+.venv/
+env/
+
+# Environment variables (Never copy secrets into a Docker image!)
+.env
+.env.*
+
+# Local data (Databases and datasets shouldn't be hardcoded into the image)
+rag-dataset/
+health_supplements/
+*.faiss
+*.pkl
