@@ -146,4 +146,3 @@ def test_config_global_instance():
     assert isinstance(config.retrieval, RetrievalConfig)
     assert isinstance(config.document_processing, DocumentProcessingConfig)
 
-
