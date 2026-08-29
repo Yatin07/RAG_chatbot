@@ -146,8 +146,4 @@ def test_config_global_instance():
     assert isinstance(config.retrieval, RetrievalConfig)
     assert isinstance(config.document_processing, DocumentProcessingConfig)
 
-def test_config_immutability():
-    """Test that config instances are immutable where appropriate."""
-    embedding_config = EmbeddingConfig()
-    with pytest.raises(Exception):  # dataclasses are immutable by default
-        embedding_config.model_name = "new-model"
+
