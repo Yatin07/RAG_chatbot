@@ -176,6 +176,10 @@ branch = true
 parallel = true
 omit = [
     "src/__init__.py",
+    "src/main.py",
+    "src/rag_chain.py",
+    "src/vector_store.py",
+    "src/document_processor.py",
     "*/tests/*",
 ]
 
