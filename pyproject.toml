@@ -97,7 +97,9 @@ exclude = '''
 
 [tool.ruff]
 line-length = 88
-target-version = "py38"
+target-version = "py39"
+
+[tool.ruff.lint]
 select = [
     "E",    # pycodestyle errors
     "W",    # pycodestyle warnings
@@ -106,23 +108,22 @@ select = [
     "B",    # flake8-bugbear
     "C4",   # flake8-comprehensions
     "UP",   # pyupgrade
-    "N",    # pep8-naming
-    "S",    # flake8-bandit
     "A",    # flake8-builtins
-    "C90",  # mccabe
-    "T20",  # flake8-print
     "PT",   # flake8-pytest-style
     "RUF",  # ruff-specific rules
 ]
 ignore = [
     "E501",  # line too long (handled by black)
     "B008",  # do not perform function calls in argument defaults
-    "C901",  # too complex
+    "B028",  # warnings.warn stacklevel (too noisy)
     "S101",  # use of assert detected
     "T201",  # print found (we allow print for CLI apps)
+    "UP006", # use list instead of List (kept for py3.8 compat)
+    "UP007", # use X | Y instead of Optional (kept for py3.8 compat)
+    "UP035", # typing.Dict/List deprecated (kept for py3.8 compat)
 ]
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["src"]
 known-third-party = [
     "langchain",

@@ -2,12 +2,13 @@
 Unit tests for the document processor module.
 """
 
-import os
-import tempfile
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
 import pytest
-from src.document_processor import DocumentProcessor
+
 from src.config import config
+from src.document_processor import DocumentProcessor
+
 
 def test_document_processor_initialization():
     """Test DocumentProcessor initialization."""
@@ -16,14 +17,15 @@ def test_document_processor_initialization():
     assert processor.chunk_size == config.document_processing.chunk_size
     assert processor.chunk_overlap == config.document_processing.chunk_overlap
 
-@patch('os.walk')
-@patch('src.document_processor.PyMuPDFLoader')
+
+@patch("os.walk")
+@patch("src.document_processor.PyMuPDFLoader")
 def test_discover_pdf_files(mock_loader, mock_walk):
     """Test PDF file discovery."""
     # Setup mock file structure
     mock_walk.return_value = [
-        ('tests/test-data', ['subdir'], ['test1.pdf', 'test2.txt', 'test3.pdf']),
-        ('tests/test-data/subdir', [], ['test4.pdf', 'test5.doc']),
+        ("tests/test-data", ["subdir"], ["test1.pdf", "test2.txt", "test3.pdf"]),
+        ("tests/test-data/subdir", [], ["test4.pdf", "test5.doc"]),
     ]
 
     processor = DocumentProcessor()
@@ -31,18 +33,19 @@ def test_discover_pdf_files(mock_loader, mock_walk):
 
     # Should find 3 PDF files
     assert len(pdf_files) == 3
-    assert 'tests/test-data/test1.pdf' in pdf_files
-    assert 'tests/test-data/test3.pdf' in pdf_files
-    assert 'tests/test-data/subdir/test4.pdf' in pdf_files
-    assert 'tests/test-data/test2.txt' not in pdf_files
-    assert 'tests/test-data/subdir/test5.doc' not in pdf_files
+    assert "tests/test-data/test1.pdf" in pdf_files
+    assert "tests/test-data/test3.pdf" in pdf_files
+    assert "tests/test-data/subdir/test4.pdf" in pdf_files
+    assert "tests/test-data/test2.txt" not in pdf_files
+    assert "tests/test-data/subdir/test5.doc" not in pdf_files
 
-@patch('os.walk')
+
+@patch("os.walk")
 def test_discover_pdf_files_no_pdfs(mock_walk):
     """Test PDF file discovery when no PDFs are found."""
     # Setup mock file structure with no PDFs
     mock_walk.return_value = [
-        ('tests/test-data', [], ['test1.txt', 'test2.doc']),
+        ("tests/test-data", [], ["test1.txt", "test2.doc"]),
     ]
 
     processor = DocumentProcessor()
@@ -52,27 +55,33 @@ def test_discover_pdf_files_no_pdfs(mock_walk):
 
     assert "No PDF files found in dataset directory" in str(excinfo.value)
 
-@patch('src.document_processor.PyMuPDFLoader')
+
+@patch("src.document_processor.PyMuPDFLoader")
 def test_load_documents(mock_loader):
     """Test document loading."""
     # Setup mock loader
     mock_pages = [
-        MagicMock(page_content="Page 1 content", metadata={"source": "test.pdf", "page": 1}),
-        MagicMock(page_content="Page 2 content", metadata={"source": "test.pdf", "page": 2}),
+        MagicMock(
+            page_content="Page 1 content", metadata={"source": "test.pdf", "page": 1}
+        ),
+        MagicMock(
+            page_content="Page 2 content", metadata={"source": "test.pdf", "page": 2}
+        ),
     ]
     mock_loader.return_value.load.return_value = mock_pages
 
     processor = DocumentProcessor()
 
-    with patch.object(processor, 'discover_pdf_files') as mock_discover:
-        mock_discover.return_value = ['test.pdf']
+    with patch.object(processor, "discover_pdf_files") as mock_discover:
+        mock_discover.return_value = ["test.pdf"]
         documents = processor.load_documents()
 
     assert len(documents) == 2
     assert documents[0].page_content == "Page 1 content"
     assert documents[1].page_content == "Page 2 content"
 
-@patch('src.document_processor.PyMuPDFLoader')
+
+@patch("src.document_processor.PyMuPDFLoader")
 def test_load_documents_with_error(mock_loader):
     """Test document loading with error handling."""
     # Setup mock loader to raise exception
@@ -80,12 +89,12 @@ def test_load_documents_with_error(mock_loader):
 
     processor = DocumentProcessor()
 
-    with patch.object(processor, 'discover_pdf_files') as mock_discover:
-        mock_discover.return_value = ['test.pdf', 'test2.pdf']
+    with patch.object(processor, "discover_pdf_files") as mock_discover:
+        mock_discover.return_value = ["test.pdf", "test2.pdf"]
 
         # Mock the second loader to work
         def side_effect(file):
-            if file == 'test.pdf':
+            if file == "test.pdf":
                 raise Exception("Test error")
             return [MagicMock(page_content="Working content", metadata={})]
 
@@ -96,7 +105,8 @@ def test_load_documents_with_error(mock_loader):
     assert len(documents) == 1
     assert documents[0].page_content == "Working content"
 
-@patch('src.document_processor.PyMuPDFLoader')
+
+@patch("src.document_processor.PyMuPDFLoader")
 def test_load_documents_all_fail(mock_loader):
     """Test document loading when all files fail."""
     # Setup mock loader to always raise exception
@@ -104,16 +114,17 @@ def test_load_documents_all_fail(mock_loader):
 
     processor = DocumentProcessor()
 
-    with patch.object(processor, 'discover_pdf_files') as mock_discover:
-        mock_discover.return_value = ['test.pdf']
+    with patch.object(processor, "discover_pdf_files") as mock_discover:
+        mock_discover.return_value = ["test.pdf"]
 
         with pytest.raises(RuntimeError) as excinfo:
             processor.load_documents()
 
         assert "No documents were successfully loaded" in str(excinfo.value)
 
-@patch('src.document_processor.RecursiveCharacterTextSplitter')
-@patch('src.document_processor.PyMuPDFLoader')
+
+@patch("src.document_processor.RecursiveCharacterTextSplitter")
+@patch("src.document_processor.PyMuPDFLoader")
 def test_chunk_documents(mock_loader, mock_splitter):
     """Test document chunking."""
     # Setup mock documents
@@ -141,8 +152,9 @@ def test_chunk_documents(mock_loader, mock_splitter):
     splitter_instance = mock_splitter.return_value
     splitter_instance.split_documents.assert_called_once_with(mock_documents)
 
-@patch('src.document_processor.RecursiveCharacterTextSplitter')
-@patch('src.document_processor.PyMuPDFLoader')
+
+@patch("src.document_processor.RecursiveCharacterTextSplitter")
+@patch("src.document_processor.PyMuPDFLoader")
 def test_process_documents(mock_loader, mock_splitter):
     """Test complete document processing pipeline."""
     # Setup mock documents and chunks
@@ -154,8 +166,8 @@ def test_process_documents(mock_loader, mock_splitter):
 
     processor = DocumentProcessor()
 
-    with patch.object(processor, 'discover_pdf_files') as mock_discover:
-        mock_discover.return_value = ['test.pdf']
+    with patch.object(processor, "discover_pdf_files") as mock_discover:
+        mock_discover.return_value = ["test.pdf"]
         chunks = processor.process_documents()
 
     assert len(chunks) == 1

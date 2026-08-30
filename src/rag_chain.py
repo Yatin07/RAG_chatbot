@@ -6,16 +6,19 @@ for question answering using retrieved document context.
 """
 
 import warnings
-from typing import Dict, Any, Optional
+from typing import Any, Dict, List
+
 from langchain import hub
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnablePassthrough
 from langchain_ollama import ChatOllama
+
 from src.config import config
 
 # Suppress warnings for cleaner output
 warnings.filterwarnings("ignore")
+
 
 class RAGChain:
     """
@@ -50,7 +53,7 @@ class RAGChain:
         return ChatOllama(
             model=config.llm.model_name,
             base_url=config.llm.base_url,
-            temperature=config.llm.temperature
+            temperature=config.llm.temperature,
         )
 
     def _create_prompt(self) -> ChatPromptTemplate:
@@ -87,15 +90,13 @@ Answer:
         Returns:
             Any: Configured RAG chain
         """
+
         def format_docs(docs: List[Dict[str, Any]]) -> str:
             """Format retrieved documents for context."""
             return "\n\n".join([doc.page_content for doc in docs])
 
         return (
-            {
-                "context": self.retriever | format_docs,
-                "question": RunnablePassthrough()
-            }
+            {"context": self.retriever | format_docs, "question": RunnablePassthrough()}
             | self.prompt
             | self.llm
             | StrOutputParser()

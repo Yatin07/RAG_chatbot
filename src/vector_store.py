@@ -7,15 +7,18 @@ using FAISS and Ollama embeddings.
 
 import os
 import warnings
+from typing import Any, Dict, List, Optional
+
 import faiss
-from typing import List, Dict, Any, Optional
-from langchain_ollama import OllamaEmbeddings
-from langchain_community.vectorstores import FAISS
 from langchain_community.docstore.in_memory import InMemoryDocstore
+from langchain_community.vectorstores import FAISS
+from langchain_ollama import OllamaEmbeddings
+
 from src.config import config
 
 # Suppress warnings for cleaner output
 warnings.filterwarnings("ignore")
+
 
 class VectorStoreManager:
     """
@@ -41,8 +44,7 @@ class VectorStoreManager:
             OllamaEmbeddings: Configured embedding model
         """
         return OllamaEmbeddings(
-            model=config.embedding.model_name,
-            base_url=config.embedding.base_url
+            model=config.embedding.model_name, base_url=config.embedding.base_url
         )
 
     def _initialize_vector_store(self) -> FAISS:
@@ -66,7 +68,7 @@ class VectorStoreManager:
             embedding_function=self.embedding_model,
             index=index,
             docstore=InMemoryDocstore(),
-            index_to_docstore_id={}
+            index_to_docstore_id={},
         )
 
     def create_vector_store(self, documents: List[Dict[str, Any]]) -> FAISS:
@@ -96,10 +98,10 @@ class VectorStoreManager:
         return self.vector_store.as_retriever(
             search_type=config.retrieval.search_type,
             search_kwargs={
-                'k': config.retrieval.k,
-                'fetch_k': config.retrieval.fetch_k,
-                'lambda_mult': config.retrieval.lambda_mult
-            }
+                "k": config.retrieval.k,
+                "fetch_k": config.retrieval.fetch_k,
+                "lambda_mult": config.retrieval.lambda_mult,
+            },
         )
 
     def save_vector_store(self, path: Optional[str] = None) -> None:
@@ -129,7 +131,7 @@ class VectorStoreManager:
         self.vector_store = FAISS.load_local(
             load_path,
             embeddings=self.embedding_model,
-            allow_dangerous_deserialization=True
+            allow_dangerous_deserialization=True,
         )
         return self.vector_store
 

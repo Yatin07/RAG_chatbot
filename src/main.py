@@ -7,14 +7,15 @@ for the RAG PDF Chatbot application.
 
 import os
 import warnings
-from typing import Optional
+
 from src.config import config
 from src.document_processor import DocumentProcessor
-from src.vector_store import VectorStoreManager
 from src.rag_chain import RAGChain
+from src.vector_store import VectorStoreManager
 
 # Suppress warnings for cleaner output
 warnings.filterwarnings("ignore")
+
 
 class RAGPDFChatbot:
     """
@@ -86,7 +87,7 @@ class RAGPDFChatbot:
             try:
                 question = input("Ask a question: ").strip()
 
-                if question.lower() in ['quit', 'exit', 'q']:
+                if question.lower() in ["quit", "exit", "q"]:
                     print("Goodbye!")
                     break
 
@@ -97,14 +98,15 @@ class RAGPDFChatbot:
                 answer = self.ask(question)
                 print("\nAnswer:")
                 print(answer)
-                print("\n" + "="*50 + "\n")
+                print("\n" + "=" * 50 + "\n")
 
             except KeyboardInterrupt:
                 print("\nGoodbye!")
                 break
             except Exception as e:
-                print(f"Error: {str(e)}")
+                print(f"Error: {e!s}")
                 continue
+
 
 def main():
     """
@@ -116,20 +118,12 @@ def main():
         description="RAG PDF Chatbot - Retrieval-Augmented Generation for PDF documents"
     )
     parser.add_argument(
-        "--rebuild",
-        action="store_true",
-        help="Rebuild vector store from scratch"
+        "--rebuild", action="store_true", help="Rebuild vector store from scratch"
     )
     parser.add_argument(
-        "--interactive",
-        action="store_true",
-        help="Run in interactive mode"
+        "--interactive", action="store_true", help="Run in interactive mode"
     )
-    parser.add_argument(
-        "--question",
-        type=str,
-        help="Ask a specific question"
-    )
+    parser.add_argument("--question", type=str, help="Ask a specific question")
 
     args = parser.parse_args()
 
@@ -147,6 +141,7 @@ def main():
     else:
         print("RAG PDF Chatbot")
         print("Use --help for usage information")
+
 
 if __name__ == "__main__":
     main()

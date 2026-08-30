@@ -7,13 +7,16 @@ for the RAG pipeline.
 
 import os
 import warnings
-from typing import List, Dict, Any
+from typing import Any, Dict, List
+
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+
 from src.config import config
 
 # Suppress warnings for cleaner output
 warnings.filterwarnings("ignore")
+
 
 class DocumentProcessor:
     """
@@ -42,7 +45,7 @@ class DocumentProcessor:
 
         for root, _, files in os.walk(self.dataset_path):
             for file in files:
-                if file.lower().endswith('.pdf'):
+                if file.lower().endswith(".pdf"):
                     pdf_files.append(os.path.join(root, file))
 
         if not pdf_files:
@@ -68,7 +71,7 @@ class DocumentProcessor:
                 pages = loader.load()
                 documents.extend(pages)
             except Exception as e:
-                warnings.warn(f"Failed to load {pdf_file}: {str(e)}")
+                warnings.warn(f"Failed to load {pdf_file}: {e!s}", stacklevel=2)
                 continue
 
         if not documents:
@@ -87,8 +90,7 @@ class DocumentProcessor:
             List[Dict[str, Any]]: List of document chunks
         """
         text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=self.chunk_size,
-            chunk_overlap=self.chunk_overlap
+            chunk_size=self.chunk_size, chunk_overlap=self.chunk_overlap
         )
 
         return text_splitter.split_documents(documents)

@@ -3,19 +3,19 @@ Unit tests for the config module.
 """
 
 import os
-import tempfile
 from unittest.mock import patch
-import pytest
+
 from src.config import (
+    AppConfig,
+    DocumentProcessingConfig,
     EmbeddingConfig,
     LLMConfig,
-    VectorStoreConfig,
     RetrievalConfig,
-    DocumentProcessingConfig,
-    AppConfig,
-    load_config,
+    VectorStoreConfig,
     config,
+    load_config,
 )
+
 
 def test_embedding_config_defaults():
     """Test EmbeddingConfig with default values."""
@@ -23,6 +23,7 @@ def test_embedding_config_defaults():
     assert embedding_config.model_name == "nomic-embed-text"
     assert embedding_config.base_url == "http://localhost:11434"
     assert embedding_config.dimension is None
+
 
 def test_llm_config_defaults():
     """Test LLMConfig with default values."""
@@ -32,6 +33,7 @@ def test_llm_config_defaults():
     assert llm_config.temperature == 0.7
     assert llm_config.max_tokens == 512
 
+
 def test_vector_store_config_defaults():
     """Test VectorStoreConfig with default values."""
     vector_config = VectorStoreConfig()
@@ -39,6 +41,7 @@ def test_vector_store_config_defaults():
     assert vector_config.metric == "L2"
     assert vector_config.save_local is True
     assert vector_config.local_path == "health_supplements"
+
 
 def test_retrieval_config_defaults():
     """Test RetrievalConfig with default values."""
@@ -48,12 +51,14 @@ def test_retrieval_config_defaults():
     assert retrieval_config.fetch_k == 100
     assert retrieval_config.lambda_mult == 1.0
 
+
 def test_document_processing_config_defaults():
     """Test DocumentProcessingConfig with default values."""
     doc_config = DocumentProcessingConfig()
     assert doc_config.chunk_size == 1000
     assert doc_config.chunk_overlap == 100
     assert doc_config.dataset_path == "rag-dataset"
+
 
 def test_app_config_structure():
     """Test AppConfig structure."""
@@ -62,7 +67,7 @@ def test_app_config_structure():
         llm=LLMConfig(),
         vector_store=VectorStoreConfig(),
         retrieval=RetrievalConfig(),
-        document_processing=DocumentProcessingConfig()
+        document_processing=DocumentProcessingConfig(),
     )
     assert isinstance(app_config.embedding, EmbeddingConfig)
     assert isinstance(app_config.llm, LLMConfig)
@@ -70,22 +75,26 @@ def test_app_config_structure():
     assert isinstance(app_config.retrieval, RetrievalConfig)
     assert isinstance(app_config.document_processing, DocumentProcessingConfig)
 
-@patch.dict(os.environ, {
-    "EMBEDDING_MODEL": "custom-embedding",
-    "OLLAMA_BASE_URL": "http://custom-ollama:11434",
-    "LLM_MODEL": "custom-llm",
-    "LLM_TEMPERATURE": "0.5",
-    "LLM_MAX_TOKENS": "256",
-    "VECTOR_STORE_PATH": "custom-vector-store",
-    "SAVE_VECTOR_STORE": "false",
-    "RETRIEVAL_TYPE": "similarity",
-    "RETRIEVAL_K": "5",
-    "RETRIEVAL_FETCH_K": "50",
-    "RETRIEVAL_LAMBDA": "0.5",
-    "CHUNK_SIZE": "500",
-    "CHUNK_OVERLAP": "50",
-    "DATASET_PATH": "custom-dataset"
-})
+
+@patch.dict(
+    os.environ,
+    {
+        "EMBEDDING_MODEL": "custom-embedding",
+        "OLLAMA_BASE_URL": "http://custom-ollama:11434",
+        "LLM_MODEL": "custom-llm",
+        "LLM_TEMPERATURE": "0.5",
+        "LLM_MAX_TOKENS": "256",
+        "VECTOR_STORE_PATH": "custom-vector-store",
+        "SAVE_VECTOR_STORE": "false",
+        "RETRIEVAL_TYPE": "similarity",
+        "RETRIEVAL_K": "5",
+        "RETRIEVAL_FETCH_K": "50",
+        "RETRIEVAL_LAMBDA": "0.5",
+        "CHUNK_SIZE": "500",
+        "CHUNK_OVERLAP": "50",
+        "DATASET_PATH": "custom-dataset",
+    },
+)
 def test_load_config_from_environment():
     """Test loading configuration from environment variables."""
     # Reload config to pick up environment variables
@@ -115,14 +124,25 @@ def test_load_config_from_environment():
     assert test_config.document_processing.chunk_overlap == 50
     assert test_config.document_processing.dataset_path == "custom-dataset"
 
+
 def test_load_config_with_missing_env_vars():
     """Test loading configuration with missing environment variables."""
     # Clear environment variables
     for key in [
-        "EMBEDDING_MODEL", "OLLAMA_BASE_URL", "LLM_MODEL", "LLM_TEMPERATURE",
-        "LLM_MAX_TOKENS", "VECTOR_STORE_PATH", "SAVE_VECTOR_STORE",
-        "RETRIEVAL_TYPE", "RETRIEVAL_K", "RETRIEVAL_FETCH_K", "RETRIEVAL_LAMBDA",
-        "CHUNK_SIZE", "CHUNK_OVERLAP", "DATASET_PATH"
+        "EMBEDDING_MODEL",
+        "OLLAMA_BASE_URL",
+        "LLM_MODEL",
+        "LLM_TEMPERATURE",
+        "LLM_MAX_TOKENS",
+        "VECTOR_STORE_PATH",
+        "SAVE_VECTOR_STORE",
+        "RETRIEVAL_TYPE",
+        "RETRIEVAL_K",
+        "RETRIEVAL_FETCH_K",
+        "RETRIEVAL_LAMBDA",
+        "CHUNK_SIZE",
+        "CHUNK_OVERLAP",
+        "DATASET_PATH",
     ]:
         if key in os.environ:
             del os.environ[key]
@@ -137,6 +157,7 @@ def test_load_config_with_missing_env_vars():
     assert test_config.retrieval.search_type == "mmr"
     assert test_config.document_processing.dataset_path == "rag-dataset"
 
+
 def test_config_global_instance():
     """Test that global config instance is properly initialized."""
     assert isinstance(config, AppConfig)
@@ -145,4 +166,3 @@ def test_config_global_instance():
     assert isinstance(config.vector_store, VectorStoreConfig)
     assert isinstance(config.retrieval, RetrievalConfig)
     assert isinstance(config.document_processing, DocumentProcessingConfig)
-
