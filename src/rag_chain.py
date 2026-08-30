@@ -8,7 +8,6 @@ for question answering using retrieved document context.
 import warnings
 from typing import Any, Dict, List
 
-from langchain import hub
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
@@ -63,25 +62,18 @@ class RAGChain:
         Returns:
             ChatPromptTemplate: Configured prompt template
         """
-        # Try to load from hub first, fall back to custom template
-        try:
-            prompt = hub.pull("rlm/rag-prompt")
-        except Exception:
-            # Custom RAG prompt template
-            template = """
-You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know the answer, just say that you don't know.
-
-If possible answer in bullet points. Make sure your answer is relevant to the question and it is answered from the context only.
-
-Question:{question}
-
-Context:{context}
-
-Answer:
-"""
-            prompt = ChatPromptTemplate.from_template(template)
-
-        return prompt
+        template = (
+            "You are an assistant for question-answering tasks. "
+            "Use the following pieces of retrieved context to answer the question. "
+            "If you don't know the answer, just say that you don't know.\n\n"
+            "If possible answer in bullet points. "
+            "Make sure your answer is relevant to the question "
+            "and it is answered from the context only.\n\n"
+            "Question:{question}\n\n"
+            "Context:{context}\n\n"
+            "Answer:"
+        )
+        return ChatPromptTemplate.from_template(template)
 
     def _build_chain(self) -> Any:
         """
