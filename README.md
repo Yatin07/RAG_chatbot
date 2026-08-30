@@ -91,6 +91,19 @@ python -m src.main --interactive
 python -m src.main --rebuild --interactive
 ```
 
+### Running with Docker 🐳
+
+Alternatively, you can build and run the application inside a container using Docker:
+
+```bash
+# Build the Docker image
+docker build -t rag-pdf-chatbot .
+
+# Run the chatbot interactively
+docker run -it rag-pdf-chatbot
+```
+
+
 ## 📂 Project Structure
 
 ```
@@ -156,6 +169,8 @@ pytest --cov=src tests/
 - [Architecture Overview](docs/ARCHITECTURE.md)
 - [Contributing Guide](docs/CONTRIBUTING.md)
 - [API Reference](docs/API.md)
+- [Comprehensive CI/CD Guide](docs/CI_CD_EXPLAINED.md)
+- [Ultimate Learning Roadmap & Syllabus](docs/LEARNING.md)
 
 ## 🤝 Contributing
 

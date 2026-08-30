@@ -1,90 +1,98 @@
-# 📚 Learning Guide: RAG PDF Chatbot
+# 📚 Ultimate Learning Guide & Project Roadmap
 
-Welcome! If you are completely new to AI, Python, or the concept of RAG (Retrieval-Augmented Generation), this guide is designed for you. It provides a **chronological roadmap** to learn all the technologies used in this project from scratch.
+Welcome! This guide is designed to take you from a complete beginner to an advanced developer by using this **RAG PDF Chatbot** codebase as your primary learning sandbox. 
 
-## 🗺️ The Learning Roadmap
-
-To truly understand how this project works, it's best to learn the underlying technologies in a specific order:
-
-1. **Python Fundamentals** (The Foundation)
-2. **Virtual Environments & Package Management** (The Setup)
-3. **Core AI Concepts & Local LLMs** (The Brains)
-4. **LangChain & RAG** (The Framework)
-5. **Vector Databases & FAISS** (The Memory)
-6. **Understanding this Project's Codebase** (Putting it all together)
+It explains **every single file** in this project, its architectural role, and maps out a step-by-step syllabus from basic programming to advanced AI engineering and DevOps.
 
 ---
 
-### Step 1: Python Fundamentals 🐍
-This project is built entirely in Python. You don't need to be an expert, but you need to understand the basics to read the code.
+## 🗺️ Part 1: Step-by-Step Learning Syllabus (Basic to Advanced)
 
-- **What to learn**: Variables, Data Structures (Lists, Dictionaries), Functions, Classes (Object-Oriented Programming), and File I/O.
-- **Why we use it**: It is the industry standard language for AI and Data Science.
-- **Resources**: 
-  - [Python for Beginners (FreeCodeCamp)](https://www.youtube.com/watch?v=rfscVS0vtbw)
-  - [Automate the Boring Stuff with Python](https://automatetheboringstuff.com/)
+To understand this project fully, you should learn these topics in order:
 
-### Step 2: Environment Management & Tooling ⚙️
-Before running AI models, you must know how to manage dependencies so your code doesn't break other projects on your computer.
+### 🟢 Level 1: The Basics (Foundations)
+1. **Python Programming:**
+   - *Concepts:* Variables, functions, loops (`for` and `while`), conditional statements (`if-else`), error handling (`try-except`), and Object-Oriented Programming (OOP) classes.
+   - *In this project:* Almost every file uses OOP. `src/main.py` handles CLI arguments and interactive loops.
+2. **Virtual Environments & Package Management:**
+   - *Concepts:* How python handles libraries, using `pip` to install packages, creating isolated virtual environments (`venv`), and writing config files like `pyproject.toml` and `requirements.txt`.
+   - *In this project:* Isolated packages prevent conflicts with your computer's global packages.
 
-- **What to learn**: `pip`, `venv` (Virtual Environments), and `.env` files (Environment Variables).
-- **Why we use it**: To keep project dependencies (like LangChain or FAISS) isolated. The `.env` file securely stores configurations without hardcoding them into the app.
-- **Resources**: 
-  - [Python Virtual Environments Explained](https://realpython.com/python-virtual-environments-a-primer/)
+### 🟡 Level 2: Version Control & DevOps Foundations
+3. **Git & GitHub basics:**
+   - *Concepts:* Commits, staging (`git add`), branches, cloning, pushing (`git push`), pulling, and ignoring temporary files via `.gitignore`.
+4. **CI/CD Pipelines (Continuous Integration / Continuous Deployment):**
+   - *Concepts:* Automating software testing. Understanding how GitHub Actions automatically builds, lints, and runs tests on your code on remote servers before deploying to PyPI.
+   - *In this project:* Read `docs/CI_CD_EXPLAINED.md` for a full breakdown.
+5. **Docker & Containerization:**
+   - *Concepts:* Creating standard "containers" so your code runs identically on any machine in the world without manual environment setup.
+   - *In this project:* The `Dockerfile` packages the chatbot so it can run inside a container.
 
-### Step 3: Local Large Language Models (LLMs) with Ollama 🦙
-Instead of paying for OpenAI's API (like ChatGPT), this project runs AI models directly on your computer.
-
-- **What to learn**: What an LLM is, how prompting works, and how to use Ollama.
-- **Why we use it**: **Ollama** allows us to run models like `llama3.2:3b` and `nomic-embed-text` locally, ensuring 100% privacy for your PDF data.
-- **Resources**: 
-  - [Ollama Official Website](https://ollama.com/) (Install it and try running `ollama run llama3.2` in your terminal!)
-
-### Step 4: The Core Concept: What is RAG? 🧠
-RAG stands for **Retrieval-Augmented Generation**. LLMs only know what they were trained on. If you ask an LLM about your personal PDF, it won't know the answer and might hallucinate (make things up). RAG solves this by:
-1. **Retrieving** relevant text from your PDF.
-2. **Augmenting** your question with that text.
-3. **Generating** an answer based *only* on the text we just gave it.
-
-- **Resources**: 
-  - [IBM: What is RAG?](https://research.ibm.com/blog/retrieval-augmented-generation-RAG)
-
-### Step 5: LangChain & Document Processing 🦜🔗
-LangChain is a powerful framework that makes building RAG applications much easier.
-
-- **What to learn**: Document Loaders, Text Splitters, and Chains.
-- **Why we use it**: 
-  - **PyMuPDF / LangChain Loaders**: To extract the raw text out of PDF files.
-  - **Text Splitters**: A 100-page PDF is too big to send to an LLM all at once. LangChain splits it into small "chunks" (e.g., 1000 characters each).
-- **Resources**: 
-  - [LangChain Crash Course](https://www.youtube.com/watch?v=aywZrzNaKjs)
-
-### Step 6: Embeddings and Vector Databases (FAISS) 🗄️
-How does the system find the *right* PDF chunk to answer your question out of thousands of chunks? Math!
-
-- **What to learn**: Vector Embeddings and FAISS (Facebook AI Similarity Search).
-- **Why we use it**: 
-  - **Embeddings**: Converts text chunks into long lists of numbers (vectors). Sentences with similar meanings have similar numbers.
-  - **FAISS**: A highly optimized database that stores these vectors and instantly finds the chunks that are mathematically most similar to your question.
-- **Resources**: 
-  - [Illustrated Guide to Vector Databases](https://www.pinecone.io/learn/vector-database/)
+### 🔴 Level 3: Advanced AI & RAG Engineering
+6. **Large Language Models (LLMs) & Local AI:**
+   - *Concepts:* What an LLM is, temperature settings, context windows, prompt engineering, and how **Ollama** runs AI models (`llama3.2:3b`) completely offline.
+7. **Document Ingestion & Chunking:**
+   - *Concepts:* Parsing text out of binary PDF files, and splitting text into overlaps (e.g., 1000 characters with 100 overlap) to keep semantic meaning without exceeding LLM memory limits.
+8. **Vector Embeddings & Semantic Search:**
+   - *Concepts:* How computers turn words into lists of numbers (vectors) representing their meaning, and how vector databases (like **FAISS**) use math (L2 distance/Cosine similarity) to search for text by meaning rather than exact keywords.
+9. **LangChain Framework:**
+   - *Concepts:* The industry-standard framework for chaining together retrievers, prompt templates, and local LLMs to form a fully operational RAG (Retrieval-Augmented Generation) pipeline.
 
 ---
 
-## 🏗️ How to Read This Project's Code
+## 📂 Part 2: Complete Codebase Directory & File Guide
 
-Now that you know the theory, here is how you should read the files in this repository chronologically to understand the flow:
+Here is a map of every file in the repository and what it does:
 
-1. **`src/config.py`**: Start here. See how the application loads settings from the `.env` file.
-2. **`src/document_processor.py`**: Look at how PDFs are loaded and split into chunks.
-3. **`src/vector_store.py`**: See how those chunks are converted to vectors and saved into FAISS.
-4. **`src/rag_chain.py`**: The magic happens here. See how LangChain takes a user's question, finds the vectors, and asks the Ollama LLM.
-5. **`src/main.py`**: The entry point. See how all the above components are tied together into a running application.
+### 1. Core Source Code (`src/`)
+- **[`src/__init__.py`](file:///e:/RAG_chatbot/src/__init__.py)**
+  - *What it is:* A special python file that marks the `src` folder as a package. 
+  - *What it does:* It is kept clean to allow lazy imports, preventing import errors during test collection on CI.
+- **[`src/config.py`](file:///e:/RAG_chatbot/src/config.py)**
+  - *What it is:* Central configuration manager.
+  - *What it does:* Reads settings from environment variables (your `.env` file) or falls back to secure default values. It sets things like LLM model names, vector store paths, chunk sizes, and retrieval parameters.
+- **[`src/document_processor.py`](file:///e:/RAG_chatbot/src/document_processor.py)**
+  - *What it is:* PDF Document Handler.
+  - *What it does:* Scans your folder for PDF files, loads their raw text using `PyMuPDFLoader`, and splits the text into small overlapping segments (chunks) using `RecursiveCharacterTextSplitter`.
+- **[`src/vector_store.py`](file:///e:/RAG_chatbot/src/vector_store.py)**
+  - *What it is:* Semantic Memory Builder.
+  - *What it does:* Takes your text chunks, converts them to numerical vectors using Ollama's `nomic-embed-text` model, and builds a **FAISS** index. It can save this index to disk or load it back.
+- **[`src/rag_chain.py`](file:///e:/RAG_chatbot/src/rag_chain.py)**
+  - *What it is:* The AI Brain (The RAG Pipeline).
+  - *What it does:* Hooks the FAISS retriever up to your ChatOllama LLM using LangChain. When you ask a question, it finds the relevant PDF chunks, writes a prompt including those chunks as context, feeds it to the local LLM, and returns the response.
+- **[`src/main.py`](file:///e:/RAG_chatbot/src/main.py)**
+  - *What it is:* Main orchestrator and entry point.
+  - *What it does:* Sets up the CLI args (e.g. `--rebuild`, `--interactive`), initializes the RAG components, and manages the interactive chat loop in the console.
 
-## 📝 Practice Exercise for Beginners
-1. Install Ollama and pull the models (`llama3.2:3b` and `nomic-embed-text`).
-2. Run `python -m src.main --rebuild --interactive` to build the database from your PDFs and start chatting.
-3. Open `src/config.py` and try changing the `CHUNK_SIZE` from `1000` to `500`. Rebuild the database. Notice if the answers become more specific or if they lose context!
+### 2. Test Suite (`tests/`)
+- **[`tests/test_config.py`](file:///e:/RAG_chatbot/tests/test_config.py)**
+  - *What it is:* Config unit tests.
+  - *What it does:* Asserts that defaults are set properly and that configuration can be overridden by environment variables.
+- **[`tests/test_document_processor.py`](file:///e:/RAG_chatbot/tests/test_document_processor.py)**
+  - *What it is:* Document processor tests.
+  - *What it does:* Mocks PDF loaders and walk paths to test chunking, file discovery, and loading errors without needing real PDF files.
+- **[`tests/test_integration.py`](file:///e:/RAG_chatbot/tests/test_integration.py)**
+  - *What it is:* Full system tests.
+  - *What it does:* Mocks out the document processor and vector database to verify that the chatbot initiates, loads index stores, and queries the RAG chain correctly end-to-end.
+
+### 3. CI/CD & Project Configuration (Root)
+- **[`Dockerfile`](file:///e:/RAG_chatbot/Dockerfile)** & **[`.dockerignore`](file:///e:/RAG_chatbot/.dockerignore)**
+  - *What they do:* Build instructions to containerize the app. `.dockerignore` makes sure heavy local data or passwords aren't baked into the image.
+- **[`.github/workflows/ci.yml`](file:///e:/RAG_chatbot/.github/workflows/ci.yml)**
+  - *What it is:* The automation blueprint.
+  - *What it does:* Commands GitHub runners to automatically test formatting (Black), linting (Ruff), import order (isort), run tests with coverage (PyTest), scan for leaked credentials (GitGuardian), and publish updates to PyPI.
+- **[`.pre-commit-config.yaml`](file:///e:/RAG_chatbot/.pre-commit-config.yaml)**
+  - *What it does:* Runs formatting checks locally on your computer every time you type `git commit` to prevent pushing broken formatting.
+- **[`pyproject.toml`](file:///e:/RAG_chatbot/pyproject.toml)**
+  - *What it is:* Modern Python packaging manifest.
+  - *What it does:* Declares metadata (name, description, version, authors), specifies dependencies (like LangChain, FAISS, PyMuPDF), and configures tools like Black, Ruff, Mypy, and Pytest coverage rules.
+- **[`.gitignore`](file:///e:/RAG_chatbot/.gitignore)**
+  - *What it does:* Tells Git to ignore build folders, virtual environments (`venv`), local configuration keys (`.env`), and compiled vector database index files (`health_supplements/`).
 
 ---
-*Happy Learning! Feel free to refer back to this document whenever you get stuck on a specific technology.*
+
+## 🛠️ Part 3: Suggested Practice Exercises to Learn by Doing
+
+1. **Alter the Chunk Size:** Open `src/config.py` and change `CHUNK_SIZE` from `1000` to `500`. Rebuild the database (`--rebuild`). Notice if the answers become more specific or if they lose context.
+2. **Change the LLM temperature:** Try changing `temperature` from `0.7` to `0.1` (very analytical/robotic) or `1.0` (more creative/verbose) in `src/config.py` and see how LLM answers shift.
+3. **Write a new test:** Open `tests/test_config.py` and write a test case to check if custom LLM max token thresholds are respected.
