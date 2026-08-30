@@ -92,13 +92,18 @@ def test_load_documents_with_error(mock_loader):
     with patch.object(processor, "discover_pdf_files") as mock_discover:
         mock_discover.return_value = ["test.pdf", "test2.pdf"]
 
-        # Mock the second loader to work
+        # Mock the loader constructor to return different mocks based on the file
         def side_effect(file):
+            mock_instance = MagicMock()
             if file == "test.pdf":
-                raise Exception("Test error")
-            return [MagicMock(page_content="Working content", metadata={})]
+                mock_instance.load.side_effect = Exception("Test error")
+            else:
+                mock_instance.load.return_value = [
+                    MagicMock(page_content="Working content", metadata={})
+                ]
+            return mock_instance
 
-        mock_loader.return_value.load.side_effect = side_effect
+        mock_loader.side_effect = side_effect
 
         documents = processor.load_documents()
 

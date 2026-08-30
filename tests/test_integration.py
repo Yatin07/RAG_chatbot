@@ -11,8 +11,8 @@ import pytest
 from src.main import RAGPDFChatbot
 
 
-@patch("src.vector_store.VectorStoreManager")
-@patch("src.document_processor.DocumentProcessor")
+@patch("src.main.VectorStoreManager")
+@patch("src.main.DocumentProcessor")
 def test_chatbot_initialization(mock_doc_processor, mock_vector_store):
     """Test RAGPDFChatbot initialization."""
     # Setup mocks
@@ -29,8 +29,8 @@ def test_chatbot_initialization(mock_doc_processor, mock_vector_store):
     assert chatbot.rag_chain is None
 
 
-@patch("src.vector_store.VectorStoreManager")
-@patch("src.document_processor.DocumentProcessor")
+@patch("src.main.VectorStoreManager")
+@patch("src.main.DocumentProcessor")
 def test_chatbot_initialize_with_existing_vector_store(
     mock_doc_processor, mock_vector_store
 ):
@@ -53,8 +53,8 @@ def test_chatbot_initialize_with_existing_vector_store(
     assert chatbot.rag_chain is not None
 
 
-@patch("src.vector_store.VectorStoreManager")
-@patch("src.document_processor.DocumentProcessor")
+@patch("src.main.VectorStoreManager")
+@patch("src.main.DocumentProcessor")
 def test_chatbot_initialize_with_new_vector_store(
     mock_doc_processor, mock_vector_store
 ):
@@ -84,8 +84,8 @@ def test_chatbot_initialize_with_new_vector_store(
     assert chatbot.rag_chain is not None
 
 
-@patch("src.vector_store.VectorStoreManager")
-@patch("src.document_processor.DocumentProcessor")
+@patch("src.main.VectorStoreManager")
+@patch("src.main.DocumentProcessor")
 def test_chatbot_ask_question(mock_doc_processor, mock_vector_store):
     """Test chatbot question answering."""
     # Setup mocks
@@ -117,8 +117,8 @@ def test_chatbot_ask_question(mock_doc_processor, mock_vector_store):
         mock_rag_chain.ask_question.assert_called_once_with("Test question")
 
 
-@patch("src.vector_store.VectorStoreManager")
-@patch("src.document_processor.DocumentProcessor")
+@patch("src.main.VectorStoreManager")
+@patch("src.main.DocumentProcessor")
 def test_chatbot_ask_before_initialization(mock_doc_processor, mock_vector_store):
     """Test asking question before initialization raises error."""
     # Initialize chatbot without calling initialize
