@@ -99,3 +99,17 @@ python -m src.main --interactive
 
 ---
 🎉 **You're all set!** Type your questions into the terminal and the AI will answer based on your PDFs.
+
+## 🚀 Alternative: Install via PyPI
+If you prefer not to clone the repository, you can now install this project directly from PyPI (Python Package Index)!
+
+1. Ensure Ollama is installed and the models are downloaded (Follow Steps 1 & 2 above).
+2. Install the package using pip:
+   ```bash
+   pip install rag-pdf-chatbot
+   ```
+3. Run the chatbot:
+   ```bash
+   python -m src.main --interactive
+   ```
+*(Note: You will still need to configure your environment variables and provide a `rag-dataset/` folder in the directory where you run the command).*

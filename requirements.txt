@@ -10,6 +10,7 @@ faiss-cpu>=1.7.0
 pymupdf>=1.23.0
 tiktoken>=0.5.0
 typing-extensions>=4.0.0
+langchain-ollama>=0.1.0
 
 # Optional dependencies for specific features
 # ollama>=0.1.0  # Uncomment if you want to use Ollama directly
