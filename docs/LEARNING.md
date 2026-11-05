@@ -89,6 +89,11 @@ Here is a map of every file in the repository and what it does:
 - **[`.gitignore`](file:///e:/RAG_chatbot/.gitignore)**
   - *What it does:* Tells Git to ignore build folders, virtual environments (`venv`), local configuration keys (`.env`), and compiled vector database index files (`health_supplements/`).
 
+### 4. Course & Interview Study Materials (`docs/`)
+- **[`docs/COURSE_LESSONS.md`](file:///e:/RAG_chatbot/docs/COURSE_LESSONS.md)**: Deep-dive lesson notes with code walkthroughs and conceptual analogies.
+- **[`docs/INTERVIEW_QA.md`](file:///e:/RAG_chatbot/docs/INTERVIEW_QA.md)**: Frequently asked technical interview questions and comprehensive answers for RAG, LangChain, FAISS, and vector embeddings.
+- **[`docs/TEACHING_PLAN.md`](file:///e:/RAG_chatbot/docs/TEACHING_PLAN.md)**: Structured modular teaching plan guiding you from foundations to mastery.
+
 ---
 
 ## 🛠️ Part 3: Suggested Practice Exercises to Learn by Doing

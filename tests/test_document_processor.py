@@ -2,6 +2,7 @@
 Unit tests for the document processor module.
 """
 
+import os
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -33,11 +34,11 @@ def test_discover_pdf_files(mock_loader, mock_walk):
 
     # Should find 3 PDF files
     assert len(pdf_files) == 3
-    assert "tests/test-data/test1.pdf" in pdf_files
-    assert "tests/test-data/test3.pdf" in pdf_files
-    assert "tests/test-data/subdir/test4.pdf" in pdf_files
-    assert "tests/test-data/test2.txt" not in pdf_files
-    assert "tests/test-data/subdir/test5.doc" not in pdf_files
+    assert os.path.join("tests/test-data", "test1.pdf") in pdf_files
+    assert os.path.join("tests/test-data", "test3.pdf") in pdf_files
+    assert os.path.join("tests/test-data/subdir", "test4.pdf") in pdf_files
+    assert os.path.join("tests/test-data", "test2.txt") not in pdf_files
+    assert os.path.join("tests/test-data/subdir", "test5.doc") not in pdf_files
 
 
 @patch("os.walk")

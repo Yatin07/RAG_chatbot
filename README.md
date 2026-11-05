@@ -116,12 +116,13 @@ rag-pdf-chatbot/
 │   ├── rag_chain.py      # RAG pipeline implementation
 │   └── main.py           # Main application entry point
 ├── tests/                # Unit and integration tests
-├── docs/                 # Architecture and design documentation
-├── config/               # Configuration files
+├── docs/                 # Architecture, learning, and design documentation
 ├── scripts/              # Automation and utility scripts
 ├── .env.example          # Environment variable template
 ├── .gitignore            # Git ignore patterns
-├── README.md             # This file
+├── pyproject.toml        # Build configuration and tool settings
+├── README.md             # Project overview
+├── SETUP.md              # Step-by-step setup guide
 └── requirements.txt      # Python dependencies
 ```
 
@@ -166,11 +167,17 @@ pytest --cov=src tests/
 
 ## 📖 Documentation
 
+- [Setup Guide (From Scratch)](SETUP.md)
 - [Architecture Overview](docs/ARCHITECTURE.md)
-- [Contributing Guide](docs/CONTRIBUTING.md)
 - [API Reference](docs/API.md)
+- [Contributing Guide](docs/CONTRIBUTING.md)
+- [Deployment Guide](docs/DEPLOYMENT.md)
+- [Usage Examples](docs/EXAMPLES.md)
 - [Comprehensive CI/CD Guide](docs/CI_CD_EXPLAINED.md)
 - [Ultimate Learning Roadmap & Syllabus](docs/LEARNING.md)
+- [Course Lessons & Deep Dives](docs/COURSE_LESSONS.md)
+- [Interview Q&A Guide](docs/INTERVIEW_QA.md)
+- [Teaching Plan](docs/TEACHING_PLAN.md)
 
 ## 🤝 Contributing
 

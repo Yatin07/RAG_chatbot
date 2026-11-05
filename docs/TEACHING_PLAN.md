@@ -28,4 +28,4 @@ This plan is designed to take you from understanding the basic concepts to maste
 
 ---
 **How we will proceed:**
-We will start with **Module 1**. I will explain the concepts and the code. Then, I will document the notes in `COURSE_LESSONS.md` and generate the relevant interview questions in `INTERVIEW_QA.md`. When you are ready to move on, just tell me!
+We will start with **Module 1**. I will explain the concepts and the code. Then, I will document the notes in [`COURSE_LESSONS.md`](COURSE_LESSONS.md) and generate the relevant interview questions in [`INTERVIEW_QA.md`](INTERVIEW_QA.md). When you are ready to move on, just tell me!

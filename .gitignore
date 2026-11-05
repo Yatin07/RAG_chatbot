@@ -55,6 +55,8 @@ ENV/
 env.bak/
 venv.bak/
 pyvenv.cfg
+Include/
+share/
 
 # Editors and IDEs
 .vscode/
@@ -70,10 +72,12 @@ Thumbs.db
 # Type check / test caches
 .mypy_cache/
 .pytest_cache/
+.ruff_cache/
 
 # Local env files
 .env
 .env.*
+!.env.example
 
 # Database files
 *.sqlite3
