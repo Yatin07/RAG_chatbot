@@ -120,9 +120,11 @@ rag-pdf-chatbot/
 ├── scripts/              # Automation and utility scripts
 ├── .env.example          # Environment variable template
 ├── .gitignore            # Git ignore patterns
+├── CONCEPTS_LOG.md       # Progressive mastery & concept tracking log
 ├── pyproject.toml        # Build configuration and tool settings
 ├── README.md             # Project overview
 ├── SETUP.md              # Step-by-step setup guide
+├── TEACHING_PLAN.md      # Ground-up teaching & interview curriculum
 └── requirements.txt      # Python dependencies
 ```
 
@@ -168,6 +170,8 @@ pytest --cov=src tests/
 ## 📖 Documentation
 
 - [Setup Guide (From Scratch)](SETUP.md)
+- [Concepts Mastery Log](CONCEPTS_LOG.md)
+- [Teaching Plan & Curriculum](TEACHING_PLAN.md)
 - [Architecture Overview](docs/ARCHITECTURE.md)
 - [API Reference](docs/API.md)
 - [Contributing Guide](docs/CONTRIBUTING.md)
@@ -177,7 +181,6 @@ pytest --cov=src tests/
 - [Ultimate Learning Roadmap & Syllabus](docs/LEARNING.md)
 - [Course Lessons & Deep Dives](docs/COURSE_LESSONS.md)
 - [Interview Q&A Guide](docs/INTERVIEW_QA.md)
-- [Teaching Plan](docs/TEACHING_PLAN.md)
 
 ## 🤝 Contributing
 

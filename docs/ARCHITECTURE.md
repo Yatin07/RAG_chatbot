@@ -72,7 +72,7 @@ graph TD
 - Handle question answering
 
 **Key Features:**
-- Fallback to custom prompts if hub fails
+- Grounded prompt templates with strict context-only constraints
 - Configurable LLM parameters
 - Document formatting for context
 - Error handling and validation
