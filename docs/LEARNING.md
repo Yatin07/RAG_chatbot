@@ -102,3 +102,20 @@ Here is a map of every file in the repository and what it does:
 1. **Alter the Chunk Size:** Open `src/config.py` and change `CHUNK_SIZE` from `1000` to `500`. Rebuild the database (`--rebuild`). Notice if the answers become more specific or if they lose context.
 2. **Change the LLM temperature:** Try changing `temperature` from `0.7` to `0.1` (very analytical/robotic) or `1.0` (more creative/verbose) in `src/config.py` and see how LLM answers shift.
 3. **Write a new test:** Open `tests/test_config.py` and write a test case to check if custom LLM max token thresholds are respected.
+
+---
+
+## 🎥 Part 4: Offline Video Curriculum & Vector Search Deep Dives
+
+To enable offline self-paced study alongside our step-by-step sessions, an external learning folder has been archived at `E:\rag-learning-videos`:
+
+| # | Filename | Topic & Focus | Duration | Format |
+|---|---|---|---|---|
+| **01** | `01-Faiss - Introduction to Similarity Search.mp4` | FAISS index types, vector distances (L2 vs. cosine), high-dimensional nearest neighbor search (James Briggs). | ~31 min | 720p MP4 |
+| **02** | `02-Python RAG Tutorial (with Local LLMs)： AI For Your PDFs.webm` | Building a full RAG pipeline locally with LangChain and Ollama (Pixegami). | ~21 min | 720p WebM |
+| **03** | `03-LangChain Expression Language (LCEL) Explained!.mkv` | LCEL piping (`|`), `RunnablePassthrough`, prompt formatting, and chaining (James Briggs). | ~25 min | 720p MKV |
+| **04** | `04-Pytest Tutorial – How to Test Python Code.webm` | Pytest fixtures, test parameterization, mocking, and coverage (freeCodeCamp). | ~1 hr 28 min | 720p WebM |
+| **05** | `05-GitHub Actions Tutorial - Basic Concepts and CI⧸CD Pipeline with Docker.webm` | GitHub Actions workflow triggers, jobs, runners, secrets, and Docker builds (TechWorld with Nana). | ~32 min | 720p WebM |
+| **06** | `06-Docker Tutorial for Beginners [FULL COURSE in 3 Hours].webm` | Complete Docker containerization course from scratch (TechWorld with Nana). | ~2 hr 46 min | 720p WebM |
+| **Ref** | `mmr-vector-search.md` | Google Cloud architectural documentation on Maximal Marginal Relevance (MMR) retrieval for balancing semantic relevance with diversity. | Reference Doc | Markdown |
+
