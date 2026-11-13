@@ -116,16 +116,20 @@ rag-pdf-chatbot/
 │   ├── rag_chain.py      # RAG pipeline implementation
 │   └── main.py           # Main application entry point
 ├── tests/                # Unit and integration tests
-├── docs/                 # Architecture, learning, and design documentation
+├── docs/                 # Architecture, learning, curriculum, and interview guides
 ├── scripts/              # Automation and utility scripts
+├── .dockerignore         # Container build ignore rules
 ├── .env.example          # Environment variable template
 ├── .gitignore            # Git ignore patterns
-├── CONCEPTS_LOG.md       # Progressive mastery & concept tracking log
+├── .pre-commit-config.yaml # Pre-commit linting & formatting hooks
+├── Dockerfile            # Containerization specification
+├── LICENSE               # MIT License
 ├── pyproject.toml        # Build configuration and tool settings
+├── rag_chatbot.ipynb     # Interactive prototype notebook
 ├── README.md             # Project overview
-├── SETUP.md              # Step-by-step setup guide
-├── TEACHING_PLAN.md      # Ground-up teaching & interview curriculum
-└── requirements.txt      # Python dependencies
+├── requirements.txt      # Python dependencies
+├── SECURITY.md           # Security policy and reporting
+└── SETUP.md              # Step-by-step setup guide
 ```
 
 ## 🔧 Configuration
@@ -170,8 +174,8 @@ pytest --cov=src tests/
 ## 📖 Documentation
 
 - [Setup Guide (From Scratch)](SETUP.md)
-- [Concepts Mastery Log](CONCEPTS_LOG.md)
-- [Teaching Plan & Curriculum](TEACHING_PLAN.md)
+- [Concepts Mastery Log](docs/CONCEPTS_LOG.md)
+- [Teaching Plan & Curriculum](docs/TEACHING_PLAN.md)
 - [Architecture Overview](docs/ARCHITECTURE.md)
 - [API Reference](docs/API.md)
 - [Contributing Guide](docs/CONTRIBUTING.md)

@@ -181,5 +181,5 @@ For every sub-step in this plan:
 3. **Failure Analysis:** What specific error, bug, or vulnerability occurs if this block is omitted or altered.
 4. **Transferable Skill:** The universal pattern applicable to real-world Data Science / Software Engineering jobs.
 5. **Check-Back Question:** A conceptual check to verify your understanding.
-6. **Concept Logging:** Updates logged to `CONCEPTS_LOG.md`.
-7. **Interview Q&A:** Corresponding interview question added to `docs/INTERVIEW_QA.md`.
+6. **Concept Logging:** Updates logged to [`CONCEPTS_LOG.md`](CONCEPTS_LOG.md).
+7. **Interview Q&A:** Corresponding interview question added to [`INTERVIEW_QA.md`](INTERVIEW_QA.md).

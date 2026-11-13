@@ -90,7 +90,7 @@ Here is a map of every file in the repository and what it does:
   - *What it does:* Tells Git to ignore build folders, virtual environments (`venv`), local configuration keys (`.env`), and compiled vector database index files (`health_supplements/`).
 
 ### 4. Course & Interview Study Materials
-- **[`CONCEPTS_LOG.md`](file:///e:/RAG_chatbot/CONCEPTS_LOG.md)**: Real-time progress and mastery tracking log for all technical concepts covered.
+- **[`docs/CONCEPTS_LOG.md`](file:///e:/RAG_chatbot/docs/CONCEPTS_LOG.md)**: Real-time progress and mastery tracking log for all technical concepts covered.
 - **[`docs/COURSE_LESSONS.md`](file:///e:/RAG_chatbot/docs/COURSE_LESSONS.md)**: Deep-dive lesson notes with code walkthroughs and conceptual analogies.
 - **[`docs/INTERVIEW_QA.md`](file:///e:/RAG_chatbot/docs/INTERVIEW_QA.md)**: Frequently asked technical interview questions and comprehensive answers for RAG, LangChain, FAISS, and vector embeddings.
 - **[`docs/TEACHING_PLAN.md`](file:///e:/RAG_chatbot/docs/TEACHING_PLAN.md)**: Structured modular teaching plan guiding you from foundations to mastery.
