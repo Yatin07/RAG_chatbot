@@ -34,3 +34,4 @@ Welcome to the **RAG PDF Chatbot** documentation hub. This directory contains de
 - Step-by-Step Installation: [SETUP.md](../SETUP.md)
 - Security Policy: [SECURITY.md](../SECURITY.md)
 - License: [LICENSE](../LICENSE)
+

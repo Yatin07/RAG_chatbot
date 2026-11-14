@@ -7,7 +7,9 @@ Once a concept is logged here with your confirmation, it will not be re-taught f
 ---
 
 ## 📌 Status
-*Phase 0 (Orientation & Syllabus alignment) in progress. No sub-steps taught yet.*
+- **Current Milestone:** Phase 0 (Orientation, codebase audit, curriculum structure, and offline resources) completed.
+- **Next Up:** Phase 1: Environment, Tooling & Configuration — *Step 1a: Dependency Declarations & Virtual Environments (`pyproject.toml`, `requirements.txt`)*.
+- **Last Updated:** 2026-11-14
 
 ---
 
