@@ -231,3 +231,109 @@ def interactive_mode(self):
   - `while True:`: *Why?* Creates an infinite loop, keeping the Python process alive so the user can ask follow-up questions.
   - `input()`: Blocks the loop and waits for the user to type in the terminal.
   - `break`: The only way to exit the infinite loop (triggered if the user types "quit").
+
+---
+
+## Module 5: The Backbone - Typed Configuration & 12-Factor Design (`src/config.py`)
+
+### Step 5a: Type-Safe Configuration with Python `@dataclass`
+- **Concept:** Eliminating magic strings and dictionary key errors by defining strongly typed configuration schemas.
+
+```python
+# from src/config.py
+from dataclasses import dataclass
+from typing import Optional
+
+@dataclass
+class LLMConfig:
+    """Configuration for LLM models."""
+    model_name: str = "llama3.2:3b"
+    base_url: str = "http://localhost:11434"
+    temperature: float = 0.7
+    max_tokens: int = 512
+```
+
+- **Technical Syntax Breakdown:**
+  - `@dataclass`: A decorator from Python's standard library that automatically generates `__init__()`, `__repr__()`, and `__eq__()` methods without boilerplate code.
+  - `temperature: float = 0.7`: Type annotation stating that `temperature` must be a floating-point number, with a default fallback of `0.7`.
+  - *Why not a standard Python dictionary?* Dictionaries allow typos like `config["temperatue"]` which fail silently until runtime. Dataclasses enable IDE auto-completion and static analysis with tools like Mypy, catching attribute errors before runtime.
+
+### Step 5b: Environment Variable Parsing & Safe Type Casting
+- **Concept:** Following the 12-Factor App methodology (store config in the environment) while converting string values into strongly typed Python primitives.
+
+```python
+# from src/config.py
+def load_config() -> AppConfig:
+    llm_config = LLMConfig(
+        model_name=os.getenv("LLM_MODEL", "llama3.2:3b"),
+        base_url=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
+        temperature=float(os.getenv("LLM_TEMPERATURE", "0.7")),
+        max_tokens=int(os.getenv("LLM_MAX_TOKENS", "512")),
+    )
+```
+
+- **Technical Syntax Breakdown:**
+  - `os.getenv("KEY", "default")`: Reads an environment variable. If the key is not set, it safely returns the second parameter as a default value instead of raising a `KeyError`.
+  - `float(...)` and `int(...)`: Environment variables are always read as raw strings (`str`). Without explicit casting, passing `"0.7"` to an LLM parameter expecting a float would trigger type validation errors.
+  - `save_local=os.getenv("SAVE_VECTOR_STORE", "true").lower() == "true"`: Idiomatic Python boolean parsing. Checks case-insensitively whether the environment string equals `"true"`, correctly evaluating `"True"`, `"TRUE"`, or `"true"` to boolean `True`.
+
+### Step 5c: Composition over Inheritance (`AppConfig`)
+- **Concept:** Structuring complex systems through modular sub-configs combined into one master application state.
+
+```python
+# from src/config.py
+@dataclass
+class AppConfig:
+    """Main application configuration."""
+    embedding: EmbeddingConfig
+    llm: LLMConfig
+    vector_store: VectorStoreConfig
+    retrieval: RetrievalConfig
+    document_processing: DocumentProcessingConfig
+```
+
+- **Technical Syntax Breakdown:**
+  - *Why hierarchical composition?* Grouping related settings into domain-specific classes (`EmbeddingConfig`, `RetrievalConfig`, etc.) prevents `AppConfig` from becoming a monolithic class with dozens of loose fields. Each component (`VectorStoreManager`, `DocumentProcessor`) only receives the slice of configuration it actually needs.
+
+---
+
+## Module 6: Quality Assurance & Enterprise Testing (`tests/`)
+
+### Step 6a: Test Isolation & Pytest Fixtures
+- **Concept:** Ensuring every unit test runs in a clean, reproducible state without side effects on disk or memory.
+
+```python
+# from tests/test_document_processor.py
+import pytest
+from unittest.mock import Mock, patch
+
+@pytest.fixture
+def temp_pdf_dir(tmp_path):
+    dataset_dir = tmp_path / "rag-dataset"
+    dataset_dir.mkdir()
+    pdf_file = dataset_dir / "sample.pdf"
+    pdf_file.write_text("Dummy content")
+    return str(dataset_dir)
+```
+
+- **Technical Syntax Breakdown:**
+  - `@pytest.fixture`: A decorator that defines reusable test setup logic. Pytest injects fixture return values into test functions based on matching argument names (dependency injection).
+  - `tmp_path`: Built-in Pytest fixture that creates a unique temporary directory for each test run and deletes it afterward, preventing tests from polluting the real filesystem.
+
+### Step 6b: Mocking External Dependencies (`unittest.mock.patch`)
+- **Concept:** Testing application logic without running real local LLMs, downloading PDFs, or making network requests during CI/CD.
+
+```python
+# from tests/test_integration.py
+@patch("src.main.RAGChain")
+@patch("src.main.VectorStoreManager")
+@patch("src.main.DocumentProcessor")
+def test_chatbot_initialization(mock_doc_proc, mock_vec_mgr, mock_rag_chain):
+    chatbot = RAGPDFChatbot()
+    assert chatbot is not None
+```
+
+- **Technical Syntax Breakdown:**
+  - `@patch("module.ClassName")`: Temporarily replaces the real class with a `MagicMock` object during the execution of the test.
+  - *Why mock?* In continuous integration (GitHub Actions), Ollama is not installed and GPUs are unavailable. Mocking allows tests to execute in under 2 seconds, verifying method invocations, error handling, and parameter passing without external dependencies.
+
